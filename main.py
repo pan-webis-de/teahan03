@@ -13,8 +13,3 @@ def storeModel(model, name, v):
 	f.close()
 
 
-#storeModel(m, "ppm", "1")
-m = loadModel("ppm", "1")
-m.printModel()
-#print(m)
-
