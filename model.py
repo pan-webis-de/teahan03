@@ -86,6 +86,19 @@ class Model(object):
 			return self.p(c, cont[1:])
 		return context.getCharCount(c)/order.cnt
 
+	# returns the models probability of string s
+	def pn(self, s):
+		if len(s) == 0:
+			return 0
+		p = 1
+		for i in range(len(s)):
+			if i <= self.modelOrder:
+				p *= self.p(s[0:i]):
+			else:
+				p *= self.p(s[i - self.modelOrder:i]
+		return p
+		
+	
 	# merge this model with another model m, esentially the values for every character in every context are added
 	def merge(self, m):
 		if self.modelOrder != m.modelOrder:
