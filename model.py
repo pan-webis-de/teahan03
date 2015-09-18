@@ -16,25 +16,18 @@ class Model(object):
 	def printModel(self):
 		s = "Total characters read: "+str(self.cnt)+"\n"
 		for i in range(self.modelOrder+1):
-			s += "Order "+str(i)+":\n"
-			for cont in self.orders[i].contexts:
-				if(i > 0):
-					s += "  '"+cont+"':\n"
-				for char in self.orders[i].contexts[cont].chars:
-					s += "     '"+char+"': "+str(self.orders[i].contexts[cont].chars[char])+"\n"
-			s += "\n"
-		print(s)
+			self.printOrder(i)
 
 	# print a specific order of the model
 	# TODO: Output becomes too long, reordering on the screen has to be made
 	def printOrder(self, n):
-		s = "Total characters in this order: "+str(self.orders[n].cnt)+"\n"
-		s += "Order "+str(n)+":\n"
-		for cont in self.orders[n].contexts:
+		o = self.orders[n]
+		s = "Order "+str(n)+": ("+str(o.cnt)+")\n"
+		for cont in o.contexts:
 			if(n > 0):
-				s += "  '"+cont+"':\n"
-			for char in self.orders[n].contexts[cont].chars:
-				s += "     '"+char+"': "+str(self.orders[n].contexts[cont].chars[char])+"\n"
+				s += "  '"+cont+"': ("+str(o.contexts[cont].cnt)+")\n"
+			for char in o.contexts[cont].chars:
+				s += "     '"+char+"': "+str(o.contexts[cont].chars[char])+"\n"
 		s += "\n"
 		print(s)
 
@@ -84,20 +77,7 @@ class Model(object):
 			if (order.n == 0):
 				return 1/self.alphSize
 			return self.p(c, cont[1:])
-		return context.getCharCount(c)/order.cnt
-
-	# returns the models probability of string s
-	def pn(self, s):
-		if len(s) == 0:
-			return 0
-		p = 1
-		for i in range(len(s)):
-			if i <= self.modelOrder:
-				p *= self.p(s[0:i]):
-			else:
-				p *= self.p(s[i - self.modelOrder:i]
-		return p
-		
+		return context.getCharCount(c)/context.cnt
 	
 	# merge this model with another model m, esentially the values for every character in every context are added
 	def merge(self, m):
@@ -154,8 +134,10 @@ class Order(object):
 
 class Context(object):
 	# chars - Dictionary containing character counts of the given context
+	# cnt - character count of this context
 	def __init__(self):
 		self.chars = {}
+		self.cnt = 0
 
 	def hasChar(self, c):
 		return c in self.chars
@@ -164,12 +146,14 @@ class Context(object):
 		self.chars[c] = 0
 
 	def incCharCount(self, c):
+		self.cnt += 1
 		self.chars[c] += 1
 
 	def getCharCount(self, c):
 		return self.chars[c]
 
 	def merge(self, cont):
+		self.cnt += cont.cnt
 		for c in cont.chars:
 			if not self.hasChar(c):
 				self.chars[c] = cont.chars[c]
@@ -177,6 +161,9 @@ class Context(object):
 				self.chars[c] += cont.chars[c]
 
 	def negate(self, cont):
+		if self.cnt < cont.cnt:
+			raise NameError("Model1 does not contain the Model2 to be negated, Model1 might be corrupted!")
+		self.cnt -= cont.cnt
 		for c in cont.chars:
 			if (not self.hasChar(c)) or (self.chars[c] < cont.chars[c]):
 				raise NameError("Model1 does not contain the Model2 to be negated, Model1 might be corrupted!")
