@@ -33,7 +33,6 @@ do
 				author=$model
 			fi
 		done
-		echo "${author:${#modeldir}+1}"
 		if [ "${author:${#modeldir}+1}" == "${testauthor:${#testdir}+1}" ]
 		then
 			echo "pass!"

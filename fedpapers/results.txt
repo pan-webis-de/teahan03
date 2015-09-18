@@ -1,0 +1,96 @@
+cross-entropy of fedpapers/testing/49.txt...
+
+Hamilton:
+1.5309067187064196
+
+Madison:
+1.4203731690826071
+
+cross-entropy of fedpapers/testing/50.txt...
+
+Hamilton:
+1.6102872313380066
+
+Madison:
+1.5048489521204658
+
+cross-entropy of fedpapers/testing/51.txt...
+
+Hamilton:
+1.5112473674847131
+
+Madison:
+1.3825257775414803
+
+cross-entropy of fedpapers/testing/52.txt...
+
+Hamilton:
+1.5617360244495944
+
+Madison:
+1.4481165656817434
+
+cross-entropy of fedpapers/testing/53.txt...
+
+Hamilton:
+1.6327216051552942
+
+Madison:
+1.4625721222183956
+
+cross-entropy of fedpapers/testing/54.txt...
+
+Hamilton:
+1.639134113821499
+
+Madison:
+1.4467213354216348
+
+cross-entropy of fedpapers/testing/55.txt...
+
+Hamilton:
+1.6453874195453932
+
+Madison:
+1.4905064759667022
+
+cross-entropy of fedpapers/testing/56.txt...
+
+Hamilton:
+1.5165006921990816
+
+Madison:
+1.4049896398609636
+
+cross-entropy of fedpapers/testing/57.txt...
+
+Hamilton:
+1.5736129076020995
+
+Madison:
+1.4844027300113425
+
+cross-entropy of fedpapers/testing/58.txt...
+
+Hamilton:
+1.5431188823400641
+
+Madison:
+1.456471373711359
+
+cross-entropy of fedpapers/testing/62.txt...
+
+Hamilton:
+1.4793877186019315
+
+Madison:
+1.501612992563797
+
+cross-entropy of fedpapers/testing/63.txt...
+
+Hamilton:
+1.4899833835980416
+
+Madison:
+1.504724934762848
+
