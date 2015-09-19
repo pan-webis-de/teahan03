@@ -69,15 +69,15 @@ class Model(object):
 		order = self.orders[len(cont)]
 		if not order.hasContext(cont):
 			if (order.n == 0):
-				return 1/self.alphSize
+				return 1.0/self.alphSize
 			return self.p(c, cont[1:])
 
 		context = order.contexts[cont]
 		if not context.hasChar(c):
 			if (order.n == 0):
-				return 1/self.alphSize
+				return 1.0/self.alphSize
 			return self.p(c, cont[1:])
-		return context.getCharCount(c)/context.cnt
+		return float(context.getCharCount(c))/context.cnt
 	
 	# merge this model with another model m, esentially the values for every character in every context are added
 	def merge(self, m):
