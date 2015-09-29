@@ -53,13 +53,15 @@ META_FNAME = "meta-file.json"
 OUT_FNAME = "out.json"
 
 def loadJson(corpus):
-	global corpusdir, upath, candidates, unknowns
+	global corpusdir, upath, candidates, unknowns, encoding, language
 	corpusdir += corpus
 	mfile = open(os.path.join(corpusdir, META_FNAME), "r")
 	metajson = json.load(mfile)
 	mfile.close()
 
 	upath += os.path.join(corpusdir, metajson["folder"])
+	encoding += metajson["encoding"]
+	language += metajson["language"]
 	candidates += [author["author-name"] for author in metajson["candidate-authors"]]
 	unknowns += [text["unknown-text"] for text in metajson["unknown-texts"]]
 
@@ -68,6 +70,12 @@ def getUnknownText(fname):
 	s = dfile.read()
 	dfile.close()
 	return s
+
+def getTrainingBytes(fname):
+	dfile = open(os.path.join(upath, fname), "rb")
+	b = bytearray(dfile.read())
+	dfile.close()
+	return b
 
 def loadTraining():
 	for cand in candidates:
@@ -82,6 +90,12 @@ def getTrainingText(cand, fname):
 	dfile.close()
 	return s
 
+def getTrainingBytes(cand, fname):
+	dfile = open(os.path.join(corpusdir, cand, fname), "rb")
+	b = bytearray(dfile.read())
+	dfile.close()
+	return b
+
 def storeJson(texts, cands, scores = None):
 	answers = []
 	if scores == None:
@@ -92,6 +106,8 @@ def storeJson(texts, cands, scores = None):
 	json.dump({"answers": answers}, f, indent=2)
 	f.close()
 
+encoding = ""
+language = ""
 corpusdir = ""
 upath = ""
 candidates = []
