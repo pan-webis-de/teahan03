@@ -101,7 +101,7 @@ def getTrainingBytes(cand, fname):
 	dfile.close()
 	return b
 
-def storeJson(texts, cands, scores = None, path):
+def storeJson(path, texts, cands, scores = None):
 	answers = []
 	if scores == None:
 		scores = [1 for text in texts]

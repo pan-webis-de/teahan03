@@ -1,7 +1,6 @@
 from model import Model
-from sys import argv
 from math import log
-import pickle, os
+import pickle, os, argparse
 import jsonhandler
 
 MODEL_DIR = "models"
@@ -45,12 +44,12 @@ def loadModels():
 def createModels():
 	jsonhandler.loadTraining()
 	for cand in candidates:
-		m = Model(5, 256)
+		models[cand] = Model(5, 256)
 		print("creating model for "+cand)
 		for doc in jsonhandler.trainings[cand]:
 			m.read(jsonhandler.getTrainingText(cand, doc))
 			print(doc+" read")
-		storeModel(m, os.path.join(modeldir, cand))
+		storeModel(models[cand], os.path.join(modeldir, cand))
 		print("Model for "+cand+" saved")
 
 # attributes the authorship, according to the cross-entropy ranking.
@@ -72,22 +71,29 @@ def createAnswers():
 
 
 def main():
-	if len(argv) != 2:
-		print("Syntax: python ppm_tira.py MAIN_FOLDER")
+	
+	parser = argparse.ArgumentParser(description="Tira submission for PPM approach (teahan03)")
+	parser.add_argument("-i", action="store", help="path to corpus directory")
+	parser.add_argument("-o", action="store", help="path to output directory")
+	args = vars(parser.parse_args())
+
+	corpusdir = args["i"]
+	outputdir = args["o"]
+	if corpusdir == None or outputdir == None:
+		parser.print_help()
 		return
 
-	corpusdir = argv[1]
 	jsonhandler.loadJson(corpusdir)
 
 	global modeldir
-	modeldir = os.path.join(corpusdir, MODEL_DIR)
+	modeldir = os.path.join(outputdir, MODEL_DIR)
 	if not os.path.exists(modeldir):
 		os.makedirs(modeldir)
-		createModels()	
+		createModels()
 	loadModels()
 	
 	createAnswers()
-	jsonhandler.storeJson(unknowns, authors, scores, corpusdir)
+	jsonhandler.storeJson(outputdir, unknowns, authors, scores)
 	
 modeldir = ""
 models = {}
