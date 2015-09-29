@@ -1,6 +1,6 @@
-# corpusdir - name of subdir with corpus
 # META_FNAME - name of the meta-file.json
 # OUT_FNAME - file to write the output in (out.json)
+# corpusdir - name of subdir with corpus
 # upath - path of the 'unknown' dir in the corpus (from json)
 # candidates - list of candidate author names (from json)
 # unknowns - list of unknown filenames (from json)
@@ -34,6 +34,10 @@ for cand in candidates:
 authors = []
 scores = []
 
+# Get Parameters from json-file:
+l = jsonhandler.language
+e = jsonhandler.encoding
+
 for file in unknowns:
 	# Get content of unknown file 'file' as a string with:
 	# jsonhandler.getUnknownText(file)
@@ -51,6 +55,7 @@ import os, json
 
 META_FNAME = "meta-file.json"
 OUT_FNAME = "out.json"
+GT_FNAME = "ground-truth.json"
 
 def loadJson(corpus):
 	global corpusdir, upath, candidates, unknowns, encoding, language
@@ -71,7 +76,7 @@ def getUnknownText(fname):
 	dfile.close()
 	return s
 
-def getTrainingBytes(fname):
+def getUnknownBytes(fname):
 	dfile = open(os.path.join(upath, fname), "rb")
 	b = bytearray(dfile.read())
 	dfile.close()
@@ -96,15 +101,25 @@ def getTrainingBytes(cand, fname):
 	dfile.close()
 	return b
 
-def storeJson(texts, cands, scores = None):
+def storeJson(texts, cands, scores = None, path):
 	answers = []
 	if scores == None:
 		scores = [1 for text in texts]
 	for i in range(len(texts)):
 		answers.append({"unknown_text": texts[i], "author": cands[i], "score": scores[i]})
-	f = open(os.path.join(corpusdir, OUT_FNAME), "w")
+	f = open(os.path.join(path, OUT_FNAME), "w")
 	json.dump({"answers": answers}, f, indent=2)
 	f.close()
+
+def loadGroundTruth():
+	tfile = open(os.path.join(corpusdir, GT_FNAME), "r")
+	tjson = json.load(tfile)
+	tfile.close()
+
+	global trueauthors
+	for i in range(len(tjson["ground-truth"])):
+		trueAuthors.append(tjson["ground-truth"][i]["true-author"])
+		
 
 encoding = ""
 language = ""
@@ -113,3 +128,4 @@ upath = ""
 candidates = []
 unknowns = []
 trainings = {}
+trueAuthors = []

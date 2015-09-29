@@ -87,7 +87,7 @@ def main():
 	loadModels()
 	
 	createAnswers()
-	jsonhandler.storeJson(unknowns, authors, scores)
+	jsonhandler.storeJson(unknowns, authors, scores, corpusdir)
 	
 modeldir = ""
 models = {}
