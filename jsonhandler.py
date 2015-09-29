@@ -10,13 +10,6 @@
 # 	{"candidate2":["file1.txt", "file2.txt", ...], "candidate2":["file1.txt", ...] ...}
 # trueAuthors - list of true authors of the texts (from GT_FNAME json) correstponding to 'unknowns'
 
-# Usage:
-# loadJson(corpusname), with corpusname from commandline
-# OPTIONAL: loadTraining()
-# OPTIONAL: getTrainingText(jsonhandler.candidate[i], jsonhandler.trainings[jsonhandler.candidates[i]][j]), gets trainingtext j from candidate i as a string
-# getUnknownText(jsonhandler.unknowns[i]), gets unknown text i as a string
-# storeJson(candidates, texts, scores), with list of candidates as candidates (jsonhandler.candidates can be used), list of texts as texts and list of scores as scores, last argument can be ommitted
-
 '''
 EXAMPLE:
 
@@ -116,6 +109,7 @@ def getUnknownBytes(fname):
 	return b
 
 # run this method in the end to store the output in the 'path' directory as OUT_FNAME
+# pass a list of filenames (you can use 'unknowns'), a list of your predicted authors and optionally a list of the scores (both must of course be in the same order as the 'texts' list)
 def storeJson(path, texts, cands, scores = None):
 	answers = []
 	if scores == None:
@@ -136,7 +130,7 @@ def loadGroundTruth():
 	for i in range(len(tjson["ground-truth"])):
 		trueAuthors.append(tjson["ground-truth"][i]["true-author"])
 		
-
+# initialization of global variables
 encoding = ""
 language = ""
 corpusdir = ""

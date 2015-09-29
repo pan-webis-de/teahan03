@@ -69,7 +69,7 @@ def createAnswers():
 		scores.append(score)
 		print(doc+" attributed")
 
-
+# commandline argument parsing, calling the necessary methods
 def main():
 	
 	parser = argparse.ArgumentParser(description="Tira submission for PPM approach (teahan03)")
@@ -95,7 +95,8 @@ def main():
 	
 	createAnswers()
 	jsonhandler.storeJson(outputdir, unknowns, authors, scores)
-	
+
+# initialization of global variables
 modeldir = ""
 models = {}
 
