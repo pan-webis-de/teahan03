@@ -47,7 +47,7 @@ def createModels():
 		models[cand] = Model(5, 256)
 		print("creating model for "+cand)
 		for doc in jsonhandler.trainings[cand]:
-			m.read(jsonhandler.getTrainingText(cand, doc))
+			models[cand].read(jsonhandler.getTrainingText(cand, doc))
 			print(doc+" read")
 		storeModel(models[cand], os.path.join(modeldir, cand))
 		print("Model for "+cand+" saved")
@@ -90,7 +90,8 @@ def main():
 	if not os.path.exists(modeldir):
 		os.makedirs(modeldir)
 		createModels()
-	loadModels()
+	else:
+		loadModels()
 	
 	createAnswers()
 	jsonhandler.storeJson(outputdir, unknowns, authors, scores)
