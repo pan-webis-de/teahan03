@@ -1,4 +1,3 @@
-from model import Model
 from math import log
 import pickle, os, argparse
 import jsonhandler
