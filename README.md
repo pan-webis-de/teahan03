@@ -2,7 +2,7 @@
 
 This is a reimplementation of the approach to authorship attribution originally described in
 
-> W. Teahan and D.J. Harper. [Using compression-based language models for text categorization](http://boston.lti.cs.cmu.edu/callan/Workshops/lmir01/WorkshopProcs/Papers/teahan.pdf). In Language Modeling and Information Retrieval, pp. 141-165, 2003 [[paper](http://boston.lti.cs.cmu.edu/callan/Workshops/lmir01/WorkshopProcs/Papers/teahan.pdf)]
+> William J. Teahan and David J. Harper. [Using compression-based language models for text categorization](http://boston.lti.cs.cmu.edu/callan/Workshops/lmir01/WorkshopProcs/Papers/teahan.pdf). In Language Modeling and Information Retrieval, pp. 141-165, 2003 [[paper](http://boston.lti.cs.cmu.edu/callan/Workshops/lmir01/WorkshopProcs/Papers/teahan.pdf)]
 
 It was reimplemented as part of a science reproducibility study alongside [14 other authorship attribution approaches](https://github.com/search?q="Who+wrote+the+web"+user:pan-webis-de). The results of the reproducibility study can be found in
 
