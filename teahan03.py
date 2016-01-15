@@ -224,8 +224,8 @@ def createModels():
 		for doc in jsonhandler.trainings[cand]:
 			models[cand].read(jsonhandler.getTrainingText(cand, doc))
 			print(doc+" read")
-		storeModel(models[cand], os.path.join(modeldir, cand))
-		print("Model for "+cand+" saved")
+		#storeModel(models[cand], os.path.join(modeldir, cand))
+		#print("Model for "+cand+" saved")
 
 # attributes the authorship, according to the cross-entropy ranking.
 # attribution is saved in json-formatted structure 'answers'
@@ -263,7 +263,7 @@ def main():
 	global modeldir
 	modeldir = os.path.join(outputdir, MODEL_DIR)
 	if not os.path.exists(modeldir):
-		os.makedirs(modeldir)
+		#os.makedirs(modeldir)
 		createModels()
 	else:
 		loadModels()
