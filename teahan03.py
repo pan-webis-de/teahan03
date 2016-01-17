@@ -12,7 +12,6 @@ class Model(object):
     # modelOrder - order of the model
     # orders - List of Order-Objects
     # alphSize - size of the alphabet
-
     def __init__(self, order, alphSize):
         self.cnt = 0
         self.alphSize = alphSize
@@ -115,7 +114,6 @@ class Order(object):
     # n - whicht order
     # cnt - character count of this order
     # contexts - Dictionary of contexts in this order
-
     def __init__(self, n):
         self.n = n
         self.cnt = 0
@@ -154,7 +152,6 @@ class Order(object):
 class Context(object):
     # chars - Dictionary containing character counts of the given context
     # cnt - character count of this context
-
     def __init__(self):
         self.chars = {}
         self.cnt = 0
@@ -204,16 +201,12 @@ def loadModel(mpath):
     return m
 
 # stores model object 'model' to 'mpath' using pickle
-
-
 def storeModel(model, mpath):
     f = open(mpath, "wb")
     pickle.dump(model, f)
     f.close()
 
 # calculates the cross-entropy of the string 's' using model 'm'
-
-
 def h(m, s):
     n = len(s)
     h = 0
@@ -228,8 +221,6 @@ def h(m, s):
     return h / n
 
 # loads models of candidates in 'candidates' into 'models'
-
-
 def loadModels():
     for cand in jsonhandler.candidates:
         print("loading model for " + cand)
@@ -238,8 +229,6 @@ def loadModels():
 # creates models of candidates in 'candidates'
 # updates each model with any files stored in the subdirectory of 'corpusdir' named with the candidates name
 # stores each model named under the candidates name in 'modeldir'
-
-
 def createModels():
     jsonhandler.loadTraining()
     for cand in candidates:
@@ -253,8 +242,6 @@ def createModels():
 
 # attributes the authorship, according to the cross-entropy ranking.
 # attribution is saved in json-formatted structure 'answers'
-
-
 def createAnswers():
     print("creating answers")
     for doc in unknowns:
@@ -271,8 +258,6 @@ def createAnswers():
         print(doc + " attributed")
 
 # commandline argument parsing, calling the necessary methods
-
-
 def main():
 
     parser = argparse.ArgumentParser(
